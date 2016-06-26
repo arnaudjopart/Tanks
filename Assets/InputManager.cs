@@ -8,7 +8,7 @@ public class InputManager : MonoBehaviour {
 
     public float m_speed;
     public Player m_playerOne;
-    public GameObject m_playerTwo;
+    public Player m_playerTwo;
 
     #endregion
 
@@ -21,6 +21,7 @@ public class InputManager : MonoBehaviour {
 	void Update () {
 
         ManageInputPlayerOne();
+        ManageInputPlayerTwo();
 
     }
 
@@ -36,14 +37,27 @@ public class InputManager : MonoBehaviour {
         m_playerOne.ManageMoveInput(playerOneMoveInput);
                
     }
-   
+
+    void ManageInputPlayerTwo()
+    {
+        float HPad = Input.GetAxis("Horizontal");
+        float VPad = Input.GetAxis("Vertical");
+
+        print(VPad);
+
+        playerTwoMoveInput = new Vector2(HPad, VPad);
+
+        m_playerTwo.ManageMoveInput(playerTwoMoveInput);
+
+    }
+
 
     #region Private Members
 
     private Rigidbody m_rb;
     private Transform m_transform;
 
-    private Vector2 playerOneMoveInput;
+    private Vector2 playerOneMoveInput, playerTwoMoveInput;
 
     #endregion  
 }
