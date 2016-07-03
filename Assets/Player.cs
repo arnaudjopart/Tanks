@@ -5,9 +5,8 @@ public class Player : MonoBehaviour {
 
     #region Public and Protected Members
 
-    public GameObject m_bulletPrefab;
-    public Transform cannon;
-    public InputManager m_inputManager;
+    public Transform m_cannon;
+    
     public float m_speed;
 
     #endregion
@@ -17,17 +16,17 @@ public class Player : MonoBehaviour {
     void Start () {
         m_rb = GetComponent<Rigidbody>();
         m_transform = GetComponent<Transform>();
+        m_projectilesContainer = GameObject.Find("ProjectilesContainer");
+        if (m_projectilesContainer)
+        {
+            Debug.Log("Ok Container");
+        }
+        m_poolManager = m_projectilesContainer.GetComponent<PoolManager>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-       
-
-        if( Input.GetKeyDown( KeyCode.Space ) )
-        {
-            Shoot();
-        }
 	}
 
     public void ManageMoveInput(Vector2 _vector)
@@ -41,12 +40,17 @@ public class Player : MonoBehaviour {
 
     }
 
-    private void Shoot()
+    public void Shoot()
     {
         Debug.Log( "Shoot" );
-        GameObject bullet = Instantiate(m_bulletPrefab,cannon.position,m_transform.rotation) as GameObject;
+        Transform bullet = m_poolManager.GetFirstActiveFalse();
+        print(bullet.GetComponent<Projectile>());
+        bullet.GetComponent<Projectile>().Launch(m_cannon.position, m_cannon.rotation);
+       
 
     }
     private Rigidbody m_rb;
     private Transform m_transform;
+    private GameObject m_projectilesContainer;
+    private PoolManager m_poolManager;
 }

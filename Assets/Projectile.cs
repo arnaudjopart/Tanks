@@ -7,14 +7,32 @@ public class Projectile : MonoBehaviour {
     public float m_liveTime;
     #endregion
     // Use this for initialization
-    void Start () {
+
+    void Awake()
+    {
         m_transform = GetComponent<Transform>();
-        startLiveTimer = Time.time;
+    }
+    void Start () {
+        
+        
 	}
 	
+    public void Launch(Vector3 _positionOfSpawn, Quaternion _rotationOfSpawn)
+    {
+        gameObject.SetActive(true);
+        
+        
+        
+        m_transform.position = _positionOfSpawn;
+        m_transform.rotation = _rotationOfSpawn;
+
+        startLiveTimer = Time.time;
+
+
+    } 
 	// Update is called once per frame
 	void Update () {
-        m_transform.Translate(m_transform.InverseTransformVector(m_transform.forward)*10*Time.deltaTime);
+        m_transform.Translate(m_transform.InverseTransformVector(m_transform.forward)*50*Time.deltaTime);
         if (Time.time > startLiveTimer + m_liveTime)
         {
             this.gameObject.SetActive(false);

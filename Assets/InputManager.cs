@@ -6,7 +6,6 @@ public class InputManager : MonoBehaviour {
 
     #region Public And Protected Members
 
-    public float m_speed;
     public Player m_playerOne;
     public Player m_playerTwo;
 
@@ -22,7 +21,6 @@ public class InputManager : MonoBehaviour {
 
         ManageInputPlayerOne();
         ManageInputPlayerTwo();
-
     }
 
     void ManageInputPlayerOne()
@@ -30,11 +28,12 @@ public class InputManager : MonoBehaviour {
         float HPad = Input.GetAxis("HorizontalPad");
         float VPad = Input.GetAxis("VerticalPad");
 
-        print(VPad);
+        //print(VPad);
 
         playerOneMoveInput = new Vector2(HPad, VPad);
 
         m_playerOne.ManageMoveInput(playerOneMoveInput);
+        
                
     }
 
@@ -43,11 +42,16 @@ public class InputManager : MonoBehaviour {
         float HPad = Input.GetAxis("Horizontal");
         float VPad = Input.GetAxis("Vertical");
 
-        print(VPad);
+        //print(VPad);
 
         playerTwoMoveInput = new Vector2(HPad, VPad);
 
         m_playerTwo.ManageMoveInput(playerTwoMoveInput);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            m_playerTwo.Shoot();
+        }
 
     }
 

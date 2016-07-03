@@ -26,11 +26,11 @@ public class PoolManager : MonoBehaviour {
         {
             if (!obj.gameObject.activeSelf)
             {
-                obj.gameObject.SetActive(true);
+                Debug.Log("Found");
                 return obj;
             }
         }
-
+        Debug.Log("Need to create new instancy");
         Transform newInstance = CreateInstance();
         m_listOfInstancies.Add(newInstance);
         return newInstance;
